@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flight Reservation System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        button {
+            display: block;
+            width: 100%;
+            margin: 10px 0;
+            padding: 15px 0;
+            border: none;
+            background-color: #007BFF;
+            color: white;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            text-align: center;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Flight Reservation System</h1>
+
+        <div id="menu">
+            <button onclick="showAddFlightForm()">Add Flight</button>
+            <button onclick="viewFlights()">View Flights</button>
+            <button onclick="showBookFlightForm()">Book Flight</button>
+            <button onclick="showCancelReservationForm()">Cancel Reservation</button>
+            <button onclick="viewReservations()">View Reservations</button>
+        </div>
+
+        <div id="addFlightForm" class="hidden">
+            <h2>Add Flight</h2>
+            <label for="flightNumber">Flight Number:</label>
+            <input type="text" id="flightNumber"><br>
+            <label for="numSeats">Number of Seats:</label>
+            <input type="number" id="numSeats"><br>
+            <button onclick="addFlight()">Add Flight</button>
+            <button onclick="hideForms()">Back</button>
+        </div>
+
+        <div id="bookFlightForm" class="hidden">
+            <h2>Book Flight</h2>
+            <label for="flightToBook">Flight Number:</label>
+            <input type="text" id="flightToBook"><br>
+            <label for="seatNumber">Seat Number:</label>
+            <input type="number" id="seatNumber"><br>
+            <label for="passengerName">Passenger Name:</label>
+            <input type="text" id="passengerName"><br>
+            <button onclick="bookFlight()">Book Flight</button>
+            <button onclick="hideForms()">Back</button>
+        </div>
+
+        <div id="cancelReservationForm" class="hidden">
+            <h2>Cancel Reservation</h2>
+            <label for="reservationId">Reservation ID:</label>
+            <input type="number" id="reservationId"><br>
+            <button onclick="cancelReservation()">Cancel</button>
+            <button onclick="hideForms()">Back</button>
+        </div>
+
+        <div id="output"></div>
+    </div>
+
+    <script>
+        // Example data storage
+        const flights = {};
+        const reservations = {};
+
+        function hideForms() {
+            document.querySelectorAll('.hidden').forEach(form => form.style.display = 'none');
+            document.getElementById('menu').style.display = 'block';
+        }
+
+        function showAddFlightForm() {
+            hideForms();
+            document.getElementById('menu').style.display = 'none';
+            document.getElementById('addFlightForm').style.display = 'block';
+        }
+
+        function showBookFlightForm() {
+            hideForms();
+            document.getElementById('menu').style.display = 'none';
+            document.getElementById('bookFlightForm').style.display = 'block';
+        }
+
+        function showCancelReservationForm() {
+            hideForms();
+            document.getElementById('menu').style.display = 'none';
+            document.getElementById('cancelReservationForm').style.display = 'block';
+        }
+
+        function addFlight() {
+            const flightNumber = document.getElementById('flightNumber').value;
+            const numSeats = parseInt(document.getElementById('numSeats').value);
+            if (flightNumber && !isNaN(numSeats)) {
+                flights[flightNumber] = Array(numSeats).fill(1);
+                alert(`Flight ${flightNumber} added with ${numSeats} seats.`);
+                hideForms();
+            } else {
+                alert('Please enter valid flight details.');
+            }
+        }
+
+        function viewFlights() {
+            let output = '<h2>Available Flights</h2>';
+            for (const flight in flights) {
+                const availableSeats = flights[flight].filter(seat => seat === 1).length;
+                output += `<p>Flight ${flight}: ${availableSeats} seats available</p>`;
+            }
+            if (Object.keys(flights).length === 0) {
+                output += '<p>No flights available.</p>';
+            }
+            document.getElementById('output').innerHTML = output;
+        }
+
+        function bookFlight() {
+            const flightNumber = document.getElementById('flightToBook').value;
+            const seatNumber = parseInt(document.getElementById('seatNumber').value);
+            const passengerName = document.getElementById('passengerName').value;
+            if (flights[flightNumber] && flights[flightNumber][seatNumber - 1] === 1) {
+                flights[flightNumber][seatNumber - 1] = 0;
+                const reservationId = Object.keys(reservations).length + 1;
+                reservations[reservationId] = { flightNumber, passengerName, seatNumber };
+                alert(`Reservation successful! Reservation ID: ${reservationId}`);
+                hideForms();
+            } else {
+                alert('Invalid flight number or seat is already booked.');
+            }
+        }
+
+        function cancelReservation() {
+            const reservationId = parseInt(document.getElementById('reservationId').value);
+            if (reservations[reservationId]) {
+                const { flightNumber, seatNumber } = reservations[reservationId];
+                delete reservations[reservationId];
+                flights[flightNumber][seatNumber - 1] = 1;
+                alert(`Reservation ${reservationId} cancelled successfully.`);
+                hideForms();
+            } else {
+                alert('Reservation ID not found.');
+            }
+        }
+
+        function viewReservations() {
+            let output = '<h2>Current Reservations</h2>';
+            for (const id in reservations) {
+                const { flightNumber, passengerName, seatNumber } = reservations[id];
+                output += `<p>Reservation ID: ${id}, Flight: ${flightNumber}, Passenger: ${passengerName}, Seat: ${seatNumber}</p>`;
+            }
+            if (Object.keys(reservations).length === 0) {
+                output += '<p>No reservations found.</p>';
+            }
+            document.getElementById('output').innerHTML = output;
+        }
+
+        hideForms();
+    </script>
+</body>
+</html>

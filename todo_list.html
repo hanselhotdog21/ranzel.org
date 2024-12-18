@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .todo-container {
+            width: 300px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+        .todo-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .todo-input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        .todo-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        .todo-list li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #f9f9f9;
+            padding: 10px;
+            margin-bottom: 5px;
+            border-radius: 5px;
+        }
+        .todo-list li button {
+            background-color: #ff4c4c;
+            border: none;
+            color: white;
+            padding: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .todo-list li button:hover {
+            background-color: #e04a4a;
+        }
+        .error {
+            color: red;
+            font-size: 12px;
+            margin-top: 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="todo-container">
+        <h2>To-Do List</h2>
+        <input type="text" id="todo-input" class="todo-input" placeholder="Add a new task...">
+        <button onclick="addTask()">Add Task</button>
+        <ul id="todo-list" class="todo-list">
+            <!-- Tasks will appear here -->
+        </ul>
+        <div id="error-message" class="error"></div>
+    </div>
+
+    <script>
+        // Add event listener for the Enter key to trigger addTask function
+        document.getElementById('todo-input').addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                addTask();
+            }
+        });
+
+        function addTask() {
+            const inputField = document.getElementById('todo-input');
+            const taskText = inputField.value.trim();
+            const errorMessage = document.getElementById('error-message');
+
+            if (taskText === '') {
+                errorMessage.textContent = 'Please enter a task!';
+            } else {
+                const todoList = document.getElementById('todo-list');
+
+                const li = document.createElement('li');
+                li.innerHTML = `
+                    <span class="task-text">${taskText}</span>
+                    <button onclick="editTask(this)">Edit</button>
+                    <button onclick="removeTask(this)">Delete</button>
+                `;
+                todoList.appendChild(li);
+
+                inputField.value = ''; // Clear the input field
+                errorMessage.textContent = ''; // Clear error message
+            }
+        }
+
+        function removeTask(button) {
+            const taskItem = button.parentElement;
+            taskItem.remove();
+        }
+
+        function editTask(button) {
+            const taskItem = button.parentElement;
+            const taskTextElement = taskItem.querySelector('.task-text');
+            const currentText = taskTextElement.textContent;
+            
+            // Create an input field to edit the task
+            const inputField = document.createElement('input');
+            inputField.value = currentText;
+            taskItem.replaceChild(inputField, taskTextElement);
+            
+            // Change Edit button to Save button
+            button.textContent = 'Save';
+            button.setAttribute('onclick', 'saveTask(this)');
+        }
+
+        function saveTask(button) {
+            const taskItem = button.parentElement;
+            const inputField = taskItem.querySelector('input');
+            const newText = inputField.value.trim();
+
+            if (newText === '') {
+                alert('Task cannot be empty!');
+                return;
+            }
+
+            // Replace input field with updated text
+            const taskTextElement = document.createElement('span');
+            taskTextElement.classList.add('task-text');
+            taskTextElement.textContent = newText;
+            taskItem.replaceChild(taskTextElement, inputField);
+
+            // Change Save button back to Edit button
+            button.textContent = 'Edit';
+            button.setAttribute('onclick', 'editTask(this)');
+        }
+    </script>
+
+</body>
+</html>

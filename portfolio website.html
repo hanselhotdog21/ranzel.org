@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ranzel's Portfolio</title>
+<style>
+    /* General Styles */
+    body {
+        font-family: 'Arial', sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #eaf2f8;
+        color: #333;
+        line-height: 1.6;
+    }
+    a {
+        text-decoration: none;
+        color: #fff;
+    }
+
+    /* Header Section */
+    header {
+        background: linear-gradient(135deg, #4CAF50, #2E7D32);
+        color: #fff;
+        text-align: center;
+        padding: 40px 20px;
+    }
+    header h1 {
+        font-size: 2.8rem;
+        margin: 0;
+    }
+    header p {
+        font-size: 1.2rem;
+    }
+
+    /* Hero Section */
+    .hero {
+        background-color: #4CAF50;
+        color: #fff;
+        text-align: center;
+        padding: 60px 20px;
+    }
+    .hero h2 {
+        font-size: 2.5rem;
+        margin-bottom: 15px;
+    }
+    .hero p {
+        font-size: 1rem;
+        margin-bottom: 25px;
+    }
+    .hero a {
+        background-color: #2E7D32;
+        color: #fff;
+        padding: 10px 20px;
+        border-radius: 5px;
+        font-size: 1rem;
+        transition: background-color 0.3s ease;
+    }
+    .hero a:hover {
+        background-color: #1B5E20;
+    }
+
+    /* Main Content */
+    .container {
+        width: 90%;
+        max-width: 900px;
+        margin: 20px auto;
+        padding: 20px;
+        background: #fff;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+    }
+    .section {
+        margin-bottom: 30px;
+    }
+    .section h2 {
+        font-size: 1.8rem;
+        color: #4CAF50;
+        margin-bottom: 15px;
+    }
+
+    /* About Section */
+    .about img {
+        display: block;
+        max-width: 150px;
+        height: auto;
+        border-radius: 50%;
+        margin: 10px auto;
+        border: 3px solid #4CAF50;
+    }
+    .about p {
+        text-align: center;
+        font-size: 1rem;
+    }
+
+    /* Skills Section */
+    .skills ul {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 10px;
+        list-style: none;
+        padding: 0;
+    }
+    .skills ul li {
+        background: #f9f9f9;
+        margin: 5px;
+        padding: 15px;
+        text-align: center;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .skills ul li:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Interests Section */
+    .interests p {
+        font-size: 1rem;
+        margin: 10px 0;
+        text-align: justify;
+    }
+
+    /* Contact Section */
+    .contact {
+        text-align: center;
+        padding: 20px;
+        background: #f9f9f9;
+        margin-top: 20px;
+        border-radius: 10px;
+    }
+    .contact h2 {
+        color: #4CAF50;
+    }
+    .contact form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .contact input, .contact textarea, .contact button {
+        width: 100%;
+        max-width: 400px;
+        margin-bottom: 10px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    .contact input:focus, .contact textarea:focus {
+        border-color: #4CAF50;
+        box-shadow: 0 0 8px rgba(76, 175, 80, 0.3);
+    }
+    .contact button {
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        cursor: pointer;
+    }
+    .contact button:hover {
+        background-color: #2E7D32;
+    }
+
+    /* Footer Section */
+    footer {
+        background-color: #4CAF50;
+        color: #fff;
+        padding: 15px 0;
+        text-align: center;
+        font-size: 0.9rem;
+    }
+
+    /* Projects Section */
+    .projects ul {
+        list-style: none;
+        padding: 0;
+    }
+    .projects ul li {
+        display: flex;
+        flex-wrap: wrap;
+        margin-bottom: 30px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+    .projects ul li img {
+        max-width: 200px;
+        object-fit: cover;
+        flex-shrink: 0;
+    }
+    .projects ul li div {
+        padding: 20px;
+        flex-grow: 1;
+    }
+    .projects ul li h3 {
+        margin-top: 0;
+        font-size: 1.5rem;
+        color: #333;
+    }
+    .projects ul li p {
+        margin: 15px 0;
+        color: #555;
+    }
+    .projects ul li button {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+    .projects ul li button:hover {
+        background-color: #2E7D32;
+    }
+</style>
+</head>
+<body>
+
+<div class="hero">
+    <h2>Hi, I'm Ranzel!</h2>
+    <p>Passionate about coding and creating interactive experiences.</p>
+    
+</div>
+
+<div class="container">
+    <section class="section about">
+        <h2>About Me</h2>
+        <img src="Ranzel.jpg" alt="Ranzel T. Cenzon">
+        <p>I am a 2nd-year student at Lyceum of the Philippines University, passionate about coding and gaming. My dream is to create engaging and innovative software solutions.</p>
+    </section>
+
+    <section class="section skills">
+        <h2>Skills</h2>
+        <ul>
+            <li>Web Development (HTML, CSS, JavaScript)</li>
+            <li>Python Programming</li>
+            <li>Problem Solving</li>
+        </ul>
+    </section>
+
+    <section class="section interests">
+        <h2>Interests</h2>
+        <p>I love playing games, which inspired me to pursue a career in Computer Science. My ultimate goal is to develop my own games that are fun and meaningful.</p>
+    </section>
+    
+    <section class="section projects">
+        <h2>Projects</h2>
+        <ul>
+            <li>
+                <img src="calculator.jpg" alt="Calculator Project">
+                <div>
+                    <h3>Calculator</h3>
+                    <p>A simple calculator project to perform basic arithmetic.</p>
+                    <a href="calculator.html">
+                        <button>View Calculator Project</button>
+                    </a>
+                </div>
+            </li>
+            <li>
+                <img src="student portal inside.jpg" alt="Student Portal">
+                <div>
+                    <h3>Student Portal</h3>
+                    <p>This portal allows students to log in and view their dashboard with options to check grades, view assignments, and log out.</p>
+                    <a href="student-portal.html">
+                        <button>View Student-Portal Project</button>
+                    </a>
+                </div>
+            </li>
+            <li>
+                <img src="to-do list.jpg" alt="To-Do List">
+                <div>
+                    <h3>To-Do List</h3>
+                    <p>A basic to-do list project where users can add, edit, and remove tasks.</p>
+                    <a href="todo_list.html">
+                        <button>View To-Do List Project</button>
+                    </a>
+                </div>
+            </li>
+			<li>
+                <img src="Flight Reservation.jpg" alt="Flight Reservation">
+                <div>
+                    <h3>Flight Reservation System</h3>
+                    <p>The Flight Reservation System is a Python-based software solution designed to streamline the process of booking, canceling, and managing flight reservations.</p>
+                    <a href="Flight Reservation.html">
+                        <button>Flight Reservation </button>
+                    </a>
+                </div>
+            </li>
+			<li>
+                <img src="Photopea Dota 2.jpg" alt="Dota 2 Website Simple Design">
+                <div>
+                    <h3>Dota 2 Simple Design</h3>
+                    <p>My First Dota 2 simple website design that I made in photopea .</p>
+                </div>
+            </li>
+			
+			
+        </ul>
+    </section>
+
+    <section class="section contact">
+        <h2>Contact Me</h2>
+        <form>
+            <input type="text" placeholder="Your Name" required>
+            <input type="email" placeholder="Your Email" required>
+            <textarea placeholder="Your Message" rows="5" required></textarea>
+            <button type="submit">Send</button>
+        </form>
+    </section>
+</div>
+
+<footer>
+    <p>&copy; 2024 Ranzel T. Cenzon. All Rights Reserved.</p>
+</footer>
+
+</body>
+</html>
